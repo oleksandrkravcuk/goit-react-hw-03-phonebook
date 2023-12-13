@@ -13,23 +13,19 @@ class Phonebook extends Component {
         number: '',
         showDeleted: false,
     }
-    
     componentDidMount() {
-        const contact = localStorage.getItem('contact');
-        const contactParsed = JSON.parse(contact);
-
-    if (contactParsed) {
-        this.setState({ contacts: contactParsed });
+        const storedContacts = localStorage.getItem('contacts');
+        if (storedContacts) {
+            this.setState({ contacts: JSON.parse(storedContacts) });
         }
     }
-
-
+    
     componentDidUpdate(prevProps, prevState) {
-        if (this.state.contacts !== prevState) {
-            localStorage.setItem('contact', JSON.stringify(this.state.contacts));
-            console.log('The array has been updated contscts, write contsct to storage!');
+        if (prevState.contacts !== this.state.contacts) {
+            localStorage.setItem('contacts', JSON.stringify(this.state.contacts));
         }
     }
+
     
     change = (e) => {
         const { name, value } = e.target;
